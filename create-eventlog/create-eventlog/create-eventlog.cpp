@@ -7,6 +7,8 @@
 #include <windows.h>
 #include <winbase.h>
 
+#include "../event-resource/provider.h"
+
 #define EventSource L"RAS_INFO"
 
 int main()
