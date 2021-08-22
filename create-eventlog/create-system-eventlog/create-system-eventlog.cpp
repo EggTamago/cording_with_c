@@ -1,8 +1,5 @@
 ﻿// 
-// windows event logへの書き込み方法
-// 参考：https://docs.microsoft.com/ja-jp/windows/win32/eventlog/reporting-an-event
-// 参考 : https://togarasi.wordpress.com/2008/05/24/%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%83%AD%E3%82%B0%E3%81%A7%E4%BD%BF%E3%81%86%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB-dll%E3%82%92%E4%BD%9C%E6%88%90/
-// 参考 : https://docs.microsoft.com/en-us/windows/win32/eventlog/reporting-an-event
+// windows event log systemへの書き込み方法
 //
 
 
@@ -10,9 +7,9 @@
 #include <windows.h>
 #include <winbase.h>
 
-#include "../event-resource/RAS_INFO.h"
+#include "../event-system-resource/RAS_TEST.h"
 
-#define EventSource  "RAS_INFO"
+#define EventSource  "RAS_TEST"
 
 void main(void)
 {
