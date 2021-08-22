@@ -23,9 +23,9 @@ link.exe /NOENTRY /MACHINE:X64 /DLL provider.res
 6. inclde header file and res file in your project and build 
    
 7. set registry key 
-   registry path is following 
+   registry path is following(if you want to write system eventlog, you choose not Application but System path) 
    ```
-   \HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Application
+   \HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\Application  
    ``` 
    you make sub key in Application key.  
    Sub key name is should be the same of DLL name!!!!   
@@ -35,13 +35,13 @@ link.exe /NOENTRY /MACHINE:X64 /DLL provider.res
    1st   
    name - EventMessageFile   
    kind - REG_EXPAND_SZ   
-   data - path to dll.mui( in my PC, this is C:\windows\system32\ja-jp\***.dll.mui)  
+   data - path to dll.mui( in my PC, this is C:\windows\system32\ja-jp\\***.dll.mui)  
    2nd  
    name - TypesSupported  
    kind - REG_DWORD  
    data - 0x00000000  
    
-8. rename DLL to dll.mui and save in  C:\windows\system32\ja-jp\***.dll.mui 
+8. rename DLL to dll.mui and save in  C:\windows\system32\ja-jp\\***.dll.mui 
   
 9. finally , run your app 
 
