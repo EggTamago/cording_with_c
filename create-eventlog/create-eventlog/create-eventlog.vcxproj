@@ -146,11 +146,8 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\event-resource\provider.rc" />
+    <ResourceCompile Include="..\event-resource\RAS_INFO.rc" />
     <ResourceCompile Include="create-eventlog.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="eventlog.bin" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
