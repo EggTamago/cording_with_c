@@ -12,13 +12,18 @@
 
 #include "../event-resource/RAS_INFO.h"
 
-#define EventSource  L"RAS_INFO"
+#define EventSource  "RAS_INFO"
 
 void main(void)
 {
 
 	HANDLE hEvent;
 	BOOL Status;
+
+	LPCTSTR Args[] = {
+		"1 : this is first arg",
+		"2 : this is second arg"
+	};
 
 	/* イベントログのオープン */
 	hEvent = RegisterEventSource(NULL, EventSource);
@@ -44,18 +49,18 @@ void main(void)
 		hEvent,                                             // イベントログのハンドル
 		EVENTLOG_INFORMATION_TYPE,   // ログに書き込むイベントの種類
 		0,                                                      // イベントの分類
-		MSG_TEST_ERROR,                   // イベント識別子
+		MSG_TEST_ERROR,                         // イベント識別子
 		NULL,                                               // ユーザーセキュリティ識別子（省略可能）
-		0,                                                     // メッセージにマージする文字列の数
+		2,                                                     // メッセージにマージする文字列の数
 		0,                                                     // バイナリデータのサイズ（バイト数）
-		NULL,                                               // メッセージにマージする文字列の配列
+		&Args[0],                                         // メッセージにマージする文字列の配列
 		NULL                                                // バイナリデータのアドレス
 	);
 
 	/* イベントログのクローズ */
 	DeregisterEventSource(hEvent);
 
-	Sleep(3 * 1000);
+	Sleep(1 * 1000);
 }
 
 

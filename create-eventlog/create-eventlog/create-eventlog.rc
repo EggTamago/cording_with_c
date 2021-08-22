@@ -27,7 +27,7 @@ LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
 
 1 TEXTINCLUDE 
 BEGIN
-    "resource1.h\0"
+    "resource.h\0"
 END
 
 2 TEXTINCLUDE 
@@ -47,10 +47,10 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// resource
+// RESOURCE
 //
 
-IDR_RESOURCE1           resource                "C:\\Users\\Keiichiro\\source\\repos\\EggTamago\\enjoy_cording_with_c\\create-eventlog\\event-resource\\RAS_INFO.rc"
+IDR_RESOURCE1           RESOURCE                "C:\\Users\\Keiichiro\\source\\repos\\EggTamago\\enjoy_cording_with_c\\create-eventlog\\event-resource\\RAS_INFO.res"
 
 #endif    // “ú–{Œê (“ú–{) resources
 /////////////////////////////////////////////////////////////////////////////

@@ -28,8 +28,8 @@
     <ResourceCompile Include="create-eventlog.rc">
       <Filter>リソース ファイル</Filter>
     </ResourceCompile>
-    <ResourceCompile Include="..\event-resource\RAS_INFO.rc">
-      <Filter>リソース ファイル</Filter>
-    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\event-resource\RAS_INFO.res" />
   </ItemGroup>
 </Project>
