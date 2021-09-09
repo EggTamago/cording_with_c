@@ -1,6 +1,6 @@
 
 #
-# disk resource check
+# cpu resource check
 #
 
 # ディレクトリがなければ作成
@@ -11,6 +11,22 @@ if (!(Test-Path C:\testdir)) {
 # register event resource 
 New-EventLog -LogName Application -Source "RAS_INFO_PS" -ErrorAction SilentlyContinue
 
+
+function showCPU {
+    Param($Arg1,
+          $Arg2,
+          $Arg3,
+          $Arg4,
+          $Arg5,
+          $Arg6
+        )
+        Write-Output "================================================="
+        Write-Output "= core0 = core1 = core2 = core3 = core4 = core5 ="
+        Write-Output "================================================="
+        Write-Output "= $Arg1 = $Arg2= $Arg3 = $Arg4 = $Arg5 = $Arg6 ="
+    }
+
+showCPU
 
 while ($true) {
 
@@ -37,5 +53,4 @@ while ($true) {
 
     sleep(3)
 }
-
 

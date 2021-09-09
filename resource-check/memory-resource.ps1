@@ -4,7 +4,7 @@
 #
 
 # ディレクトリがなければ作成
-if (-Not(Test-Path C:\testdir)) {
+if (!(Test-Path C:\testdir)) {
     New-Item C:\testdir -ItemType Directory
 }
 
