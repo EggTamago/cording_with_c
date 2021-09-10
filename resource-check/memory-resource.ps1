@@ -12,8 +12,17 @@ if (!(Test-Path C:\testdir)) {
 New-EventLog -LogName Application -Source "RAS_INFO_PS" -ErrorAction SilentlyContinue
 
 while ($true) {
-    # メモリ使用率
-    $usingMemory = Get-WmiObject Win32_OperatingSystem | %{(($_.TotalVisibleMemorySize - $_.FreePhysicalMemory)/$_.TotalVisibleMemorySize) * 100}
+
+    try{
+        # メモリ使用率
+        $usingMemory = Get-WmiObject Win32_OperatingSystem | %{(($_.TotalVisibleMemorySize - $_.FreePhysicalMemory)/$_.TotalVisibleMemorySize) * 100}
+    } catch {
+        echo "fail to get memory info"
+        sleep(3)
+        continue
+    }
+
+
 
     if (0 -lt $usingMemory -lt 30) {
         echo "under 30"

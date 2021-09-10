@@ -3,31 +3,34 @@
 # cpu resource check
 #
 
-# ディレクトリがなければ作成
-if (!(Test-Path C:\testdir)) {
-    New-Item C:\testdir -ItemType Directory
-}
-
-# register event resource 
-New-EventLog -LogName Application -Source "RAS_INFO_PS" -ErrorAction SilentlyContinue
-
-
+#header
 function showCPU {
-    Param($Arg1,
-          $Arg2,
-          $Arg3,
-          $Arg4,
-          $Arg5,
-          $Arg6
+    Param([int]$Arg1,
+          [int]$Arg2,
+          [int]$Arg3,
+          [int]$Arg4,
+          [int]$Arg5,
+          [int]$Arg6,
+          [int]$Arg7
         )
-        Write-Output "================================================="
-        Write-Output "= core0 = core1 = core2 = core3 = core4 = core5 ="
-        Write-Output "================================================="
-        Write-Output "= $Arg1 = $Arg2= $Arg3 = $Arg4 = $Arg5 = $Arg6 ="
+        Write-Host ""
+        Write-Host "========================================================="
+        Write-Host "= core0 = core1 = core2 = core3 = core4 = core5 = total ="
+        Write-Host "========================================================="
+        Write-Host "=  $Arg1  =  $Arg2  =  $Arg3  =  $Arg4  =  $Arg5  =  $Arg6  =  $Arg7  ="
     }
 
-showCPU
+# 桁数を4桁に変更
+function changeDigits {
+    Param([int]$Arg1
+    )
+    "{0:D3}" -f $Arg1
+}
 
+changeDigits 100
+showCPU 100 100 100 100 100 100 100
+
+<#
 while ($true) {
 
     # ディスク情報取得 
@@ -54,3 +57,4 @@ while ($true) {
     sleep(3)
 }
 
+#>

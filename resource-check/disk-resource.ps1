@@ -14,8 +14,15 @@ New-EventLog -LogName Application -Source "RAS_INFO_PS" -ErrorAction SilentlyCon
 
 while ($true) {
 
-    # ディスク情報取得 
-    $diskInfo = Get-PSDrive -PSProvider FileSystem
+    try{
+        # ディスク情報取得 
+        $diskInfo = Get-PSDrive -PSProvider FileSystem
+    } catch {
+        echo "fail to get disk info"
+        sleep(10)
+        continue
+    }
+
 
     # ディスク未使用量
     $unusingDisk = $diskInfo | Select-Object "Free" | %{((($_.Free) / 1024) / 1024) / 1024} # byte to GB
