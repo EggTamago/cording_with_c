@@ -4,7 +4,14 @@
 #
 
 #header
-function showCPU {
+function showHeader {
+        Write-Host ""
+        Write-Host "========================================================="
+        Write-Host "= core0 = core1 = core2 = core3 = core4 = core5 = total ="
+        Write-Host "========================================================="
+    }
+
+function showContext {
     Param([int]$Arg1,
           [int]$Arg2,
           [int]$Arg3,
@@ -13,48 +20,74 @@ function showCPU {
           [int]$Arg6,
           [int]$Arg7
         )
-        Write-Host ""
-        Write-Host "========================================================="
-        Write-Host "= core0 = core1 = core2 = core3 = core4 = core5 = total ="
-        Write-Host "========================================================="
         Write-Host "=  $Arg1  =  $Arg2  =  $Arg3  =  $Arg4  =  $Arg5  =  $Arg6  =  $Arg7  ="
     }
 
 # 桁数を4桁に変更
 function changeDigits {
-    Param([int]$Arg1
+    Param([int]$Arg
     )
-    "{0:D3}" -f $Arg1
+    return "{0:D3}" -f $Arg
 }
 
-changeDigits 100
-showCPU 100 100 100 100 100 100 100
 
-<#
-while ($true) {
+function getCPUInfo {    
+    # CPU情報取得
+    $cpuInfo = Get-WmiObject -ComputerName localhost Win32_PerfFormattedData_PerfOS_Processor
+    return $cpuInfo        
+}
 
-    # ディスク情報取得 
-    $diskInfo = Get-PSDrive -PSProvider FileSystem
 
-    # ディスク未使用量
-    $unusingDisk = $diskInfo | Select-Object "Free" | %{((($_.Free) / 1024) / 1024) / 1024} # byte to GB
+function getCPUUsage {    
+    # CPU使用率取得
+    $cpuUsage = getCPUInfo | Select Name,PercentProcessorTime
+    return $cpuUsage
+}
 
-    # ディスク使用量
-    $usedDisk = $diskInfo | Select-Object "Used" | %{((($_.Used) / 1024) / 1024) / 1024} # byte to GB
 
-    # ディスク使用率
-    $zeroDivCheck = $usedDisk + $unusingDisk
-    if ( $zeroDivCheck -eq 0) {
-        echo "zero division error!"
-        sleep(3)
-        continue
-    } else {
-        $usedDiskPercent = (($usedDisk / ($usedDisk + $unusingDisk)) * 100)
+function getCoreNum {
+    # CPUのコア数取得
+    $cpuNum = ( getCPUUsage | Measure-Object).Count
+    return [int]$cpuNum
+}
+
+
+function getCoreUsage {
+    $usage = getCPUUsage
+    $coreNum = getCoreNum
+
+    # 各コアの使用率を入れる空配列の作成
+    $data = @('','','','','','','')
+
+
+    for ([int]$i=0; $i -lt $coreNum; $i++) {
+
+        $data[$i] =  Write-Output ($usage.PercentProcessorTime)[$i]
     }
 
-    $usedDiskPercent
-
-    sleep(3)
+    return $data
 }
 
-#>
+
+function main {
+
+    $showData = getCoreUsage
+    $coreNum = getCoreNum
+
+    # digit変換
+    for ($i=0; $i -lt $coreNum; $i++) {
+        $showData[$i] = changeDigits($showData[$i]) 
+    }
+    
+    showHeader
+
+    while($true){
+    $showData = getCoreUsage
+    showContext $showData[0] $showData[1] $showData[2] $showData[3] $showData[4] $showData[5] $showData[6]
+    sleep(3)
+    }
+
+}
+
+main
+
